@@ -4,13 +4,11 @@ import type { AuthData, AuthResponse, LoginParams } from './types';
 import { router } from '../../router';
 import { useRouter } from '@tanstack/react-router';
 
-// Auth state management
 let authState = {
   user: null as AuthData | null,
   isAuthenticated: false,
 };
 
-// Auth state functions
 export const updateAuthState = (authData: AuthData | null) => {
   authState = {
     user: authData,
@@ -88,7 +86,11 @@ export const validateUsingRefreshToken = async () => {
   }
 };
 
-export const validateAuthentication = async () => {
+/**
+ * main function to validate authentication state
+ * checks both in-memory and cookie-stored tokens
+ */
+export const validateAuthentication = async (): Promise<boolean> => {
   const isInMemoryAuthenticated = getAuthState().isAuthenticated;
   let isInCookieAuthenticated = false;
   try {
@@ -131,7 +133,6 @@ export const useAuthentication = () => {
   });
 
   const login = (email: string, password: string) => {
-    //TODO implement mock login
     loginMutation.mutate({ email, password });
   };
 
@@ -141,14 +142,8 @@ export const useAuthentication = () => {
     await router.invalidate();
   };
 
-  const isAuthenticated = () => {
-    //TODO implement mock isAuthenticated
-    return authState.isAuthenticated;
-  };
-
   return {
     login,
     logout,
-    isAuthenticated,
   };
 };

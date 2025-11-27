@@ -16,10 +16,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  server: {
-    port: 5174,
-    hmr: {
-      port: 5174, // Use the same port for HMR WebSocket
-    },
-  },
 });

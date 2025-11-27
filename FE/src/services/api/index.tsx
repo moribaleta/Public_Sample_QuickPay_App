@@ -5,7 +5,7 @@ const apiRoutes: Readonly<
     apiRoutes,
     {
       readonly path: string;
-      readonly method: 'GET' | 'POST' | 'PUT' | 'DELETE';
+      readonly method: 'GET' | 'POST';
     }
   >
 > = {
@@ -14,6 +14,12 @@ const apiRoutes: Readonly<
   transactions: { path: '/transactions', method: 'GET' },
 };
 
+/**
+ * wrapper function for Fetch API to simplify api calls on different services
+ * @param endpoint
+ * @param options
+ * @returns
+ */
 export const fetchWrapper = async (
   endpoint: apiRoutes,
   options: RequestInit = {},
@@ -33,7 +39,7 @@ export const fetchWrapper = async (
   if (
     options.body &&
     (apiRoutes[endpoint].method === 'POST' ||
-      apiRoutes[endpoint].method === 'PUT')
+      apiRoutes[endpoint].method === 'GET')
   ) {
     requestConfig.body = options.body;
   }
@@ -45,15 +51,15 @@ export const fetchWrapper = async (
   return response;
 };
 
+/**
+ * Wrapper function for Fetch API to simplify authenticated API calls
+ */
 export const fetchWithAuth = async (
   endpoint: apiRoutes,
   token?: string,
   options: RequestInit = {},
   queryParams?: Record<string, string | number>,
 ) => {
-  console.log('Fetching with auth. Endpoint:', endpoint);
-  console.log('Auth Headers:', token);
-
   if (!token) {
     throw new Error('No authentication token found');
   }
@@ -62,9 +68,6 @@ export const fetchWithAuth = async (
     Authorization: `Bearer ${token}`,
     ...(options.headers || {}),
   };
-
-  console.log('Fetching with auth. Endpoint:', endpoint);
-  console.log('Auth Headers:', authHeaders);
 
   // Build query string if parameters are provided
   let url = `${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}${apiRoutes[endpoint].path}`;

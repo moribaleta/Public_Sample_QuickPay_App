@@ -10,7 +10,6 @@ export const authenticate = (
   req: Request<{}, {}, LoginReqBody>,
   res: Response,
 ) => {
-  console.log('Login request body:', req.body);
   const { email, password } = req.body;
 
   if (email !== 'smith@example.com' || password !== 'pass123') {

@@ -7,11 +7,9 @@ import { getAuthState } from '../authentication';
 export const useTransactions = () => {
   const [page, setPage] = useState(1);
 
-  //TODO implement mock transactions service
   const transactions = useQuery<TransactionResponse>({
-    queryKey: ['transactions', page], // Include page in queryKey!
+    queryKey: ['transactions', page],
     queryFn: async () => {
-      console.log('Fetching transactions for page:', page);
       const response = await fetchWithAuth(
         'transactions',
         getAuthState().user?.access_token,
@@ -34,7 +32,6 @@ export const useTransactions = () => {
   }
 
   const onNextPage = () => {
-    console.log('Current page:', page);
     if (page < (transactions.data?.pagination?.total_pages || 0))
       setPage((prev) => prev + 1);
   };

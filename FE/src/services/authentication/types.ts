@@ -1,3 +1,5 @@
+// types reflecting BE authentication responses
+
 export type AuthResponse = {
   status: string;
   message: string;
@@ -6,7 +8,7 @@ export type AuthResponse = {
 
 export type AuthData = {
   access_token: string;
-  expires_in: number; // 15 minutes
+  expires_in: number;
   refresh_token: string;
   user: AuthUser;
 };

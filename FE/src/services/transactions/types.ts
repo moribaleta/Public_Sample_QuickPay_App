@@ -19,5 +19,3 @@ export type Transaction = {
   created_at: string;
   destination_id: string;
 };
-
-//we could try Orval type here for stricter type checking

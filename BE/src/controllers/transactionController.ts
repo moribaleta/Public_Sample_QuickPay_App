@@ -5,9 +5,6 @@ export const getTransactions = (req: Request, res: Response) => {
   const authHeader = req.headers['authorization'];
   const accessToken = authHeader && authHeader.split(' ')[1];
 
-  console.log('Access Token:', accessToken);
-  console.log('Universal Access Token:', UNIVERSAL_ACCESS_TOKEN);
-
   // If no token is provided, deny access
   if (accessToken != UNIVERSAL_ACCESS_TOKEN) {
     return res.sendStatus(401); // Unauthorized

@@ -2,11 +2,11 @@ import type { Transaction } from '../../../services/transactions/types';
 
 export const TransactionList = ({ data }: { data?: Transaction[] }) => {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {data?.map((transaction) => (
         <div
           key={transaction.id}
-          className="border p-4 mb-2 rounded-lg shadow-sm"
+          className="flex flex-col gap-4 p-4 mb-2 rounded-lg bg-white shadow hover:shadow-xl ease-in-out duration-200"
         >
           <div className="font-semibold">Transaction ID: {transaction.id}</div>
           <div>

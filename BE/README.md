@@ -1,4 +1,3 @@
-
 ## Frontend Engineering Challenge Mock API
 
 A simple Node + Express JS application that provides mock API for the frontend engineering challenge.
@@ -7,14 +6,18 @@ A simple Node + Express JS application that provides mock API for the frontend e
 - Express 5.1.0
 
 To run
+
 - npm install
 - npm run dev
 
 ### API Paths
 
 #### `POST v1/login`
+
 ##### Body: `{ "email": "smith@example.com", "password": "pass123" }`
+
 ##### Response:
+
 ```
 {
   "status": "success",
@@ -31,11 +34,16 @@ To run
     }
   }
 }
- ```
+```
+
 ---
+
 #### `POST v1/token/refresh`
-##### Body:  `"refresh_token":  "token"`
+
+##### Body: `"refresh_token":  "token"`
+
 ##### Response:
+
 ```{
   "status": "success",
   "message": "Note: refresh_token is picked randomly from a list. Returned value might be the same as previous.",
@@ -51,10 +59,15 @@ To run
   }
 }
 ```
+
 ---
-###  `GET v1/transactions?page=1`
-#####  Query Parameters: `page = pageNumber `
-#####  Response:
+
+### `GET v1/transactions?page=1`
+
+##### Query Parameters: `page = pageNumber `
+
+##### Response:
+
 ```{
   "status": "success",
   "message": "Returning items 1-5",
@@ -77,3 +90,7 @@ To run
   ]
 }
 ```
+
+## ADDITIONAL NOTES
+
+added CORS header to support cross origin api communication as this is its own node server not integrated with FE

@@ -12,13 +12,19 @@ export const OverviewPage = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1>Overview Page</h1>
-        <button onClick={logout}>Logout</button>
+    <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100">
+      <div className="flex justify-between items-center mb-8 p-4">
+        <h1 className="text-2xl font-bold">Overview</h1>
+        <button
+          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer"
+          role="button"
+          onClick={logout}
+        >
+          Logout
+        </button>
       </div>
-      <div>
-        <h2>Transactions</h2>
+      <div className="flex flex-col gap-4 max-w-[750px] mx-auto p-4 bg-white md:rounded-lg shadow">
+        <h1 className="text-xl font-bold mb-4">Transactions</h1>
         {isMobile ? (
           <TransactionList data={data?.data ?? []} />
         ) : (
