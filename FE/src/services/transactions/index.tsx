@@ -1,35 +1,52 @@
 import { useQuery } from '@tanstack/react-query';
-import type { Transaction } from './types';
+import type { TransactionResponse } from './types';
+import { fetchWithAuth } from '../api';
+import { useState } from 'react';
+import { getAuthState } from '../authentication';
 
 export const useTransactions = () => {
+  const [page, setPage] = useState(1);
+
   //TODO implement mock transactions service
-  const transactions = useQuery<Transaction[]>({
-    queryKey: ['transactions'],
+  const transactions = useQuery<TransactionResponse>({
+    queryKey: ['transactions', page], // Include page in queryKey!
     queryFn: async () => {
-      return [
+      console.log('Fetching transactions for page:', page);
+      const response = await fetchWithAuth(
+        'transactions',
+        getAuthState().user?.access_token,
         {
-          id: '1',
-          amount_in_cents: 100,
-          currency: 'USD',
-          type: 'TRANSFER',
-          status: 'completed',
-          created_at: '2024-01-01',
-          destination_id: 'dest1',
+          method: 'GET',
         },
-        {
-          id: '2',
-          amount_in_cents: 200,
-          currency: 'USD',
-          type: 'TOPUP',
-          status: 'pending',
-          created_at: '2024-01-02',
-          destination_id: 'dest2',
-        },
-      ];
+        { page: page }, // Pass page as query parameter
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch transactions');
+      }
+
+      return await response.json();
     },
   });
 
+  if (transactions.error) {
+    console.error('Error fetching transactions:', transactions.error);
+  }
+
+  const onNextPage = () => {
+    console.log('Current page:', page);
+    if (page < (transactions.data?.pagination?.total_pages || 0))
+      setPage((prev) => prev + 1);
+  };
+
+  const onPrevPage = () => {
+    setPage((prev) => Math.max(prev - 1, 1));
+  };
+
   return {
     ...transactions,
+    onNextPage,
+    onPrevPage,
+    page,
   };
 };

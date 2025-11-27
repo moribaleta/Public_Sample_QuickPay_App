@@ -3,9 +3,10 @@ import { useAuthentication } from '../../services/authentication';
 import { useTransactions } from '../../services/transactions';
 import { TransactionList } from './components/TransactionList';
 import { TransactionTable } from './components/TransactionTable';
+import { TransactionPageIndicator } from './components/TranscationPageIndicator';
 
 export const OverviewPage = () => {
-  const { data } = useTransactions();
+  const { data, onNextPage, onPrevPage } = useTransactions();
   const { logout } = useAuthentication();
 
   const isMobile = useIsMobile();
@@ -19,10 +20,16 @@ export const OverviewPage = () => {
       <div>
         <h2>Transactions</h2>
         {isMobile ? (
-          <TransactionList data={data} />
+          <TransactionList data={data?.data ?? []} />
         ) : (
-          <TransactionTable data={data} />
+          <TransactionTable data={data?.data ?? []} />
         )}
+        <TransactionPageIndicator
+          totalPages={data?.pagination.total_pages ?? 1}
+          currentPage={data?.pagination.current_page ?? 1}
+          onNextPage={onNextPage}
+          onPrevPage={onPrevPage}
+        />
       </div>
     </div>
   );

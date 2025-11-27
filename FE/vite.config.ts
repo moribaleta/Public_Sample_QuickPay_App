@@ -17,13 +17,9 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path, // Keep the /api path as-is
-      },
+    port: 5174,
+    hmr: {
+      port: 5174, // Use the same port for HMR WebSocket
     },
   },
 });
