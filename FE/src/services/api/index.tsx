@@ -70,7 +70,7 @@ export const fetchWithAuth = async (
   };
 
   // Build query string if parameters are provided
-  let url = `${import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1'}${apiRoutes[endpoint].path}`;
+  let url = `${import.meta.env.VITE_API_URL}${apiRoutes[endpoint].path}`;
   if (queryParams) {
     const searchParams = new URLSearchParams();
     Object.entries(queryParams).forEach(([key, value]) => {

@@ -87,3 +87,7 @@ App.tsx
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+
+## NOTES
+
+currently to simplify access on BE it uses CORS and only fixed to localhost:5174
