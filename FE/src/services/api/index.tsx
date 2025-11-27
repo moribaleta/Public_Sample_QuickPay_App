@@ -11,12 +11,13 @@ export const fetchWrapper = async (
   options: RequestInit = {},
 ) => {
   // Use proxy in development, full URL in production
-  const apiUrl = import.meta.env.VITE_API_URL || '/api/v1';
+  // Temporarily use direct URL to bypass proxy for testing
+  const apiUrl = 'http://localhost:3000/api/v1';
 
   // Build the request config step by step to avoid any merging issues
   const requestConfig: RequestInit = {
     method: options.method || 'GET',
-    mode: 'cors',  // Changed from 'no-cors' to 'cors'
+    mode: 'cors', // Changed from 'no-cors' to 'cors'
     // Remove credentials until server supports it properly
     // credentials: 'include',
     headers: {
@@ -37,7 +38,10 @@ export const fetchWrapper = async (
 
   console.log('=== DEBUG fetchWrapper ===');
   console.log('Endpoint:', endpoint);
-  console.log('Environment:', import.meta.env.DEV ? 'development' : 'production');
+  console.log(
+    'Environment:',
+    import.meta.env.DEV ? 'development' : 'production',
+  );
   console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
   console.log('Computed apiUrl:', apiUrl);
   console.log('Final requestConfig:', requestConfig);
