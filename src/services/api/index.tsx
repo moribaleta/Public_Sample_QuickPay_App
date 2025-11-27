@@ -10,7 +10,43 @@ export const fetchWrapper = async (
   endpoint: apiRoutes,
   options: RequestInit = {},
 ) => {
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000/v1';
-  const response = await fetch(`${apiUrl}${apiRoutes[endpoint]}`, options);
+  // Use proxy in development, full URL in production
+  const apiUrl = import.meta.env.VITE_API_URL || '/api/v1';
+
+  // Build the request config step by step to avoid any merging issues
+  const requestConfig: RequestInit = {
+    method: options.method || 'GET',
+    mode: 'cors',  // Changed from 'no-cors' to 'cors'
+    // Remove credentials until server supports it properly
+    // credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  };
+
+  // Only add body if it exists and method supports it
+  if (
+    options.body &&
+    (options.method === 'POST' ||
+      options.method === 'PUT' ||
+      options.method === 'PATCH')
+  ) {
+    requestConfig.body = options.body;
+  }
+
+  console.log('=== DEBUG fetchWrapper ===');
+  console.log('Endpoint:', endpoint);
+  console.log('Environment:', import.meta.env.DEV ? 'development' : 'production');
+  console.log('VITE_API_URL:', import.meta.env.VITE_API_URL);
+  console.log('Computed apiUrl:', apiUrl);
+  console.log('Final requestConfig:', requestConfig);
+  console.log('Full Request URL:', `${apiUrl}${apiRoutes[endpoint]}`);
+  console.log('========================');
+
+  const response = await fetch(
+    `${apiUrl}${apiRoutes[endpoint]}`,
+    requestConfig,
+  );
   return response;
 };
