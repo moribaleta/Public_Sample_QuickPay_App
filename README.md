@@ -1,6 +1,6 @@
 # QuickPay App
 
-# created by Gabriel Mori Baleta
+### created by Gabriel Mori Baleta
 
 A modern payment processing application built with React, TypeScript, and Vite that integrates with external payment APIs.
 
