@@ -26,7 +26,7 @@ Before you begin, ensure you have the following installed:
 - Node.js (version 16 or higher)
 - npm
 
-## 🔧 Installation
+## 🔧 Installation FE 
 
 1. Clone the repository:
 
@@ -42,7 +42,7 @@ cd FE
 npm install
 ```
 
-## 🚀 Running the Application
+## 🚀 Running the FE Application
 
 ### Development Mode
 
@@ -87,6 +87,20 @@ App.tsx
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+
+## Installion BE
+
+from root folder
+```bash
+cd BE
+npm install
+```
+
+### Development Mode
+
+```bash
+npm run dev
+```
 
 ## NOTES
 
