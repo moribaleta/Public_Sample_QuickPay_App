@@ -14,7 +14,7 @@ A modern payment processing application built with React, TypeScript, and Vite t
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18 + TypeScript
+- **Frontend**: React 19 + TypeScript
 - **Build Tool**: Vite
 - **Styling**: CSS Modules / Styled Components / Tailwind
 - **API Integration**: Fetch API
