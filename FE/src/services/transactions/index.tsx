@@ -16,7 +16,7 @@ export const useTransactions = () => {
         {
           method: 'GET',
         },
-        { page: page }, // Pass page as query parameter
+        { page: page },
       );
 
       if (!response.ok) {
