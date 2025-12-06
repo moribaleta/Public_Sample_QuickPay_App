@@ -51,7 +51,7 @@ const storeTokenInCookies = (authData: AuthData | null) => {
   }
 
   document.cookie = `access_token=${authData.access_token}; path=/; max-age=${authData.expires_in}`;
-  document.cookie = `refresh_token=${authData.refresh_token}; path=/; max-age=${1 * 24 * 60 * 60}`; // 7 days
+  document.cookie = `refresh_token=${authData.refresh_token}; path=/; max-age=${1 * 24 * 60 * 60}`; // 1 day
 };
 
 export const validateUsingRefreshToken = async () => {
@@ -114,7 +114,7 @@ export const useAuthentication = () => {
       const response = await fetchWrapper('login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Explicit JSON
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
